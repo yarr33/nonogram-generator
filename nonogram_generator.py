@@ -118,7 +118,10 @@ imgDraw = ImageDraw.Draw(img)
 index = 0
 
 for c in range(sideOffset + sideCodeOffset, sideOffset + sideCodeOffset + height * pixelSize * pageSize + 1, pixelSize * pageSize):
-    imgDraw.line([(c,topOffset),(c,topOffset + topCodeOffset + width * pixelSize * pageSize)], fill=(0,0,0), width=1 * pageSize)
+    wid = 1
+    if((index) % 5 == 0):
+        wid = 2
+    imgDraw.line([(c,topOffset),(c,topOffset + topCodeOffset + width * pixelSize * pageSize)], fill=(0,0,0), width=wid * pageSize)
     if( index < height):
         numList = resultRot[index]
         if (len(numList)):
@@ -130,7 +133,11 @@ for c in range(sideOffset + sideCodeOffset, sideOffset + sideCodeOffset + height
 index = 0
 
 for c in range(topOffset + topCodeOffset,topOffset + topCodeOffset + width * pixelSize * pageSize + 1, pixelSize * pageSize):
-    imgDraw.line([(sideOffset, c),(sideOffset + sideCodeOffset + height * pixelSize * pageSize, c)], fill=(0,0,0), width=1 * pageSize)
+    wid = 1
+    if((index) % 5 == 0):
+        wid = 2
+    wid += int(not index + 1 % 5 )
+    imgDraw.line([(sideOffset, c),(sideOffset + sideCodeOffset + height * pixelSize * pageSize, c)], fill=(0,0,0), width=wid * pageSize)
     if( index < width):
         numList = list(reversed(result[index]))
         if (len(numList)):
