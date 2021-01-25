@@ -13,7 +13,7 @@ from PIL import Image, ImageDraw, ImageFont
 import math
 import os
 
-pageSize = 1
+pageSize = 4
 
 root = tk.Tk()
 root.withdraw()
@@ -97,15 +97,13 @@ print("done")
 
 print(end="rendering image... ")
 
-pageSize = 1
-
 sideOffset = 50 * pageSize
-topOffset = 70 * pageSize
+topOffset = 60 * pageSize
 
-if( hCodeOffset < vCodeOffset):
-    pixelSize = int( ( (595 * pageSize - sideOffset * 2) / pageSize) / (width + vCodeOffset))
+if( hCodeOffset <= vCodeOffset):
+    pixelSize = int( ( (595 * pageSize - sideOffset * 2) / pageSize) / (height + vCodeOffset))
 else:
-    pixelSize = int( ( (842 * pageSize - topOffset * 2) / pageSize) / (height + hCodeOffset))
+    pixelSize = int( ( (842 * pageSize - topOffset * 2) / pageSize) / (width + hCodeOffset))
 
 topCodeOffset = hCodeOffset * pixelSize * pageSize
 sideCodeOffset = vCodeOffset * pixelSize * pageSize
@@ -119,8 +117,8 @@ imgDraw = ImageDraw.Draw(img)
 
 index = 0
 
-for c in range(sideOffset + sideCodeOffset, sideOffset + sideCodeOffset + width * pixelSize * pageSize + 1, pixelSize * pageSize):
-    imgDraw.line([(c,topOffset),(c,topOffset + topCodeOffset + height * pixelSize * pageSize)], fill=(0,0,0), width=1 * pageSize)
+for c in range(sideOffset + sideCodeOffset, sideOffset + sideCodeOffset + height * pixelSize * pageSize + 1, pixelSize * pageSize):
+    imgDraw.line([(c,topOffset),(c,topOffset + topCodeOffset + width * pixelSize * pageSize)], fill=(0,0,0), width=1 * pageSize)
     if( index < height):
         numList = resultRot[index]
         if (len(numList)):
@@ -131,8 +129,8 @@ for c in range(sideOffset + sideCodeOffset, sideOffset + sideCodeOffset + width 
 
 index = 0
 
-for c in range(topOffset + topCodeOffset,topOffset + topCodeOffset + height * pixelSize * pageSize + 1, pixelSize * pageSize):
-    imgDraw.line([(sideOffset, c),(sideOffset + sideCodeOffset + width * pixelSize * pageSize, c)], fill=(0,0,0), width=1 * pageSize)
+for c in range(topOffset + topCodeOffset,topOffset + topCodeOffset + width * pixelSize * pageSize + 1, pixelSize * pageSize):
+    imgDraw.line([(sideOffset, c),(sideOffset + sideCodeOffset + height * pixelSize * pageSize, c)], fill=(0,0,0), width=1 * pageSize)
     if( index < width):
         numList = list(reversed(result[index]))
         if (len(numList)):
